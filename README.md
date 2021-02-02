@@ -1,16 +1,29 @@
 # Lighthouse - Laravel Websockets integration example
 
-Tested with following env variables:
-```dotenv
-# Change pusher values to these values If you don't want to build
-# Otherwise, change in resources/js/echo.link.js
-PUSHER_APP_ID=any-text
-PUSHER_APP_KEY=any-text
-PUSHER_APP_SECRET=any-text
-PUSHER_APP_CLUSTER=any-text
-PUSHER_ENABLE_LOG=false
+- `cd` into this project in your machine.
+- `composer install`
+- `touch database/database.sqlite`
+- `cp .env.example .env`
+- If you don't want to build the js code, don't change your pusher values. Otherwise, change pusher values in `resources/js/echo.link.js` according to your `.env` and install js dependencies and run `yarn run watch` or `yarn run dev`. Can use `npm` if not `yarn`ing.
+- `php artisan key:generate`
+- `php artisan migrate`
+- `php artisan websockets:serve`
+- `php artisan serve`
 
-LIGHTHOUSE_CACHE_ENABLE=false
-LIGHTHOUSE_QUEUE_BROADCASTS=false
-LIGHTHOUSE_SUBSCRIPTION_STORAGE=file
+- Open [served](http://127.0.0.1:8000/) application in your browser. It's on port `8000`
+- Open [playground](http://127.0.0.1:8000/graphql-playground) url in your browser. It'll be on `8000` port. If your application is served on different port, change it too.
+- Check the browser's console log if everything is okay or not.
+- Run the following mutation from the playground.
+```graphql endpoint doc
+mutation createUser{
+  createUser {
+    id
+    name
+    email
+    created_at
+    updated_at
+  }
+}
 ```
+- You'll get to see the update in your application homepage.
+- Otherwise, click the button on the homepage, you'll see the subscribed values.

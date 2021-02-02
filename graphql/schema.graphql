@@ -1,14 +1,6 @@
 "A datetime string with format `Y-m-d H:i:s`, e.g. `2018-01-01 13:00:00`."
 scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
 
-"A date string with format `Y-m-d`, e.g. `2011-05-23`."
-scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
-
-type Query {
-    users: [User!]! @paginate(type: "paginator" model: "App\\User")
-    user(id: ID @eq): User @find(model: "App\\User")
-}
-
 type User {
     id: ID!
     name: String!
@@ -16,11 +8,15 @@ type User {
     created_at: DateTime!
     updated_at: DateTime!
 }
+type Query {
+    hello: String!
+}
 
 type Mutation {
-    triggerTestSubscription: Boolean @field(resolver: "App\\GraphQL\\Mutations\\TriggerTestSubscriptionMutation@resolve")
+    # Check the mutation class to broadcast progamatically
+    createUser: User! @field(resolver: "App\\GraphQL\\Mutations\\CreateUser") @broadcast(subscription: userCreated)
 }
 
 type Subscription {
-    test: Int @subscription(class: "App\\GraphQL\\Subscriptions\\TestSubscription")
+    userCreated(name: String!): User! @subscription(class: "App\\GraphQL\\Subscriptions\\UserCreatedSubscription")
 }

@@ -1,14 +1,14 @@
 <template>
   <layout>
     <div class="flex flex-col items-center p-8">
-      <ApolloMutation :mutation="$options.mutations.triggerTestSubscription">
+      <ApolloMutation :mutation="$options.mutations.createUser">
         <template v-slot="{ mutate }">
-          <button @click="mutate" class="p-2 bg-purple-500 text-white rounded">Trigger test subscription</button>
+          <button @click="mutate" class="p-2 bg-purple-500 text-white rounded">Run create user mutation</button>
         </template>
       </ApolloMutation>
 
       <div class="p-8">
-        <label>Random number:</label> <span>{{ randomNumber }}</span>
+        <label>Subscription response:</label> <span>{{ subscriptionValue }}</span>
       </div>
     </div>
   </layout>
@@ -23,13 +23,16 @@ export default {
   components: { Layout },
   data() {
     return {
-      randomNumber: null,
+        subscriptionValue: 'Click the above button!',
     };
   },
   mutations: {
-    triggerTestSubscription: gql`
-      mutation TriggerTestSubscription {
-        triggerTestSubscription
+      createUser: gql`
+      mutation createUser {
+        createUser {
+            id
+            name
+        }
       }
     `,
   },
@@ -37,12 +40,17 @@ export default {
     $subscribe: {
       subscribed: {
         query: gql`
-          subscription test {
-            test
+          subscription userCreated {
+            userCreated (name: "anik") {
+              id
+              name
+              email
+              created_at
+            }
           }
         `,
         result({ data }) {
-          this.randomNumber = data.test;
+          this.subscriptionValue = data.userCreated;
         },
       },
     },
