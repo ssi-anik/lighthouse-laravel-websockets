@@ -8,8 +8,8 @@ class EchoLink extends ApolloLink {
     this.subscriptions = [];
     this.echo = new Echo({
       broadcaster: 'pusher',
-      key: 'c6f11bf7ef7a4a283091',
-      cluster: 'us2',
+      key: 'any-text',
+      cluster: 'any-text',
       authEndpoint: `graphql/subscriptions/auth`,
       wsHost: window.location.hostname,
       wsPort: 6001,

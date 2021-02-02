@@ -37,7 +37,7 @@ export default {
     $subscribe: {
       subscribed: {
         query: gql`
-          subscription Test {
+          subscription test {
             test
           }
         `,
