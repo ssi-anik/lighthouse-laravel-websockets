@@ -46,6 +46,8 @@ export default {
               name
               email
               created_at
+              has_arg
+              pushed_by_subs_resolver
             }
           }
         `,

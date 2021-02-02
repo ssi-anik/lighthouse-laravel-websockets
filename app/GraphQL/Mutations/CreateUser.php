@@ -15,6 +15,7 @@ class CreateUser
             'email'      => $faker->email,
             'created_at' => now()->toDateTimeString(),
             'updated_at' => now()->toDateTimeString(),
+            'has_arg'    => (bool) ($args['name'] ?? false),
         ];
 
         # Subscription::broadcast('userCreated', $user);

@@ -7,6 +7,9 @@ type User {
     email: String!
     created_at: DateTime!
     updated_at: DateTime!
+
+    has_arg: Boolean!
+    pushed_by_subs_resolver: String
 }
 type Query {
     hello: String!
@@ -14,9 +17,9 @@ type Query {
 
 type Mutation {
     # Check the mutation class to broadcast progamatically
-    createUser: User! @field(resolver: "App\\GraphQL\\Mutations\\CreateUser") @broadcast(subscription: userCreated)
+    createUser(name: String): User! @field(resolver: "App\\GraphQL\\Mutations\\CreateUser") @broadcast(subscription: userCreated)
 }
 
 type Subscription {
-    userCreated(name: String!): User! @subscription(class: "App\\GraphQL\\Subscriptions\\UserCreatedSubscription")
+    userCreated(name: String!): User @subscription(class: "App\\GraphQL\\Subscriptions\\UserCreatedSubscription")
 }

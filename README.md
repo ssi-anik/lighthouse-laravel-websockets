@@ -16,12 +16,14 @@
 - Run the following mutation from the playground.
 ```graphql endpoint doc
 mutation createUser{
-  createUser {
+  createUser (name: "A")  {
     id
     name
     email
     created_at
     updated_at
+    has_arg
+    pushed_by_subs_resolver
   }
 }
 ```
