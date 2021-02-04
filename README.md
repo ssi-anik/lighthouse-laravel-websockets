@@ -4,7 +4,7 @@
 - `composer install`
 - `touch database/database.sqlite`
 - `cp .env.example .env`
-- If you don't want to build the js code, don't change your pusher values. Otherwise, change pusher values in `resources/js/echo.link.js` according to your `.env` and install js dependencies and run `yarn run watch` or `yarn run dev`. Can use `npm` if not `yarn`ing.
+- If you don't want to build the js code, don't change your pusher values. Otherwise, change pusher values in `resources/js/pusher.link.js` according to your `.env` and install js dependencies and run `yarn run watch` or `yarn run dev`. Can use `npm` if not `yarn`ing.
 - `php artisan key:generate`
 - `php artisan migrate`
 - `php artisan websockets:serve`
