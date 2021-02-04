@@ -1,24 +1,16 @@
 import {ApolloLink, Observable} from 'apollo-link';
 import Echo from 'laravel-echo/dist/echo';
 
-class PusherLink extends ApolloLink {
+class EchoLink extends ApolloLink {
     constructor () {
         super();
         const token = localStorage.getItem('token');
         this.subscriptions = [];
         this.echo = new Echo({
-            broadcaster: 'pusher',
-            key: 'any-text',
-            cluster: 'any-text',
+            broadcaster: 'socket.io',
             authEndpoint: `graphql/subscriptions/auth`,
-            wsHost: window.location.hostname,
-            wsPort: 6001,
-            wssPort: 6001,
-            disableStats: true,
-            enabledTransports: [
-                'ws',
-                'wss'
-            ],
+            // Change the host name and build the js files
+            host: '127.0.0.1:9007',
             auth: {
                 headers: {
                     authorization: token ? `Bearer ${token}` : null,
@@ -52,7 +44,6 @@ class PusherLink extends ApolloLink {
     }
 
     _createSubscription (subscriptionChannel, observer) {
-        const privateChannelName = subscriptionChannel.split('private-').pop();
 
         if ( !this.subscriptions.find(s => s.channel === subscriptionChannel) ) {
             this.subscriptions.push({
@@ -60,13 +51,14 @@ class PusherLink extends ApolloLink {
             });
         }
 
-        this.echo.private(privateChannelName).listen('.lighthouse-subscription', payload => {
+        this.echo.join(subscriptionChannel).listen('.lighthouse.subscription', payload => {
             console.log('received subscription payload: ' + JSON.stringify(payload));
-            if ( !payload.more || observer._subscription._state === 'closed' ) {
+            if ( observer._subscription._state === 'closed' ) {
                 this._leaveSubscription(subscriptionChannel, observer);
                 return;
             }
-            const result = payload.result;
+
+            const result = payload.data;
             if ( result ) {
                 observer.next({
                     data: result.data, extensions: result.extensions,
@@ -83,4 +75,4 @@ class PusherLink extends ApolloLink {
     }
 }
 
-export default PusherLink;
+export default EchoLink;

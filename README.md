@@ -29,3 +29,10 @@ mutation createUser{
 ```
 - You'll get to see the update in your application homepage.
 - Otherwise, click the button on the homepage, you'll see the subscribed values.
+
+---
+
+If you're trying the `echo` driver for subscription, follow the following steps
+
+- Right click > Open inspect element.
+- Add a (jwt) token in your page's `localStorage` with the key `token`. Can be found from the **login mutation** in another project. 
