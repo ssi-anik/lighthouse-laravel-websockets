@@ -21,5 +21,5 @@ type Mutation {
 }
 
 type Subscription {
-    userCreated(name: String!): User @subscription(class: "App\\GraphQL\\Subscriptions\\UserCreatedSubscription")
+    userCreated(name: String!): User #@subscription(class: "App\\GraphQL\\Subscriptions\\UserCreated")
 }

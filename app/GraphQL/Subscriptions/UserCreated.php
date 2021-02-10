@@ -8,7 +8,7 @@ use Nuwave\Lighthouse\Schema\Types\GraphQLSubscription;
 use Nuwave\Lighthouse\Subscriptions\Subscriber;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
-class UserCreatedSubscription extends GraphQLSubscription
+class UserCreated extends GraphQLSubscription
 {
     /**
      * Level 1 Authorization: Expand this comment
@@ -99,6 +99,8 @@ class UserCreatedSubscription extends GraphQLSubscription
      * @param array                                               $args
      * @param \Nuwave\Lighthouse\Support\Contracts\GraphQLContext $context
      * @param \GraphQL\Type\Definition\ResolveInfo                $resolveInfo
+     *
+     * @return mixed
      */
     public function resolve ($root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo) {
         $root['pushed_by_subs_resolver'] = 'obviously by UserCreatedSubscription';
