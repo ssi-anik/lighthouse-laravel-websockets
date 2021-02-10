@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+    php:
+        build:
+            context: .
+            dockerfile: ./docker/php/Dockerfile
+        volumes:
+            - .:/var/www/html
+        links:
+            - pusher
+        ports:
+            - 8000:80
+
+    pusher:
+        build:
+            context: .
+            dockerfile: ./docker/php/worker.dockerfile
+        volumes:
+            - .:/var/www/html
+        ports:
+            - 6001:6001
