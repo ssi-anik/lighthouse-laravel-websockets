@@ -6,24 +6,28 @@ class PusherLink extends ApolloLink {
         super();
         const token = localStorage.getItem('token');
         this.subscriptions = [];
+
+        // uncomment if you're using the pusher service rather than the laravel websockets.
+        // const config = {key: 'pusher-service-key', cluster: 'pusher-cluster',}
+
+        // comment if you're using pusher service, not the laravel websockets.
+        const config = {wsHost: window.location.hostname, wsPort: 6001, wssPort: 6001, key: 'any-text',}
+
         this.echo = new Echo({
-            broadcaster: 'pusher',
-            key: 'any-text',
-            cluster: 'any-text',
-            authEndpoint: `graphql/subscriptions/auth`,
-            wsHost: window.location.hostname,
-            wsPort: 6001,
-            wssPort: 6001,
-            disableStats: true,
-            enabledTransports: [
-                'ws',
-                'wss'
-            ],
-            auth: {
-                headers: {
-                    authorization: token ? `Bearer ${token}` : null,
+            ...config, ...{
+                broadcaster: 'pusher',
+                authEndpoint: `graphql/subscriptions/auth`,
+                disableStats: true,
+                enabledTransports: [
+                    'ws',
+                    'wss'
+                ],
+                auth: {
+                    headers: {
+                        authorization: token ? `Bearer ${token}` : null,
+                    },
                 },
-            },
+            }
         });
     }
 
