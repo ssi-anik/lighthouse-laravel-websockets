@@ -17,7 +17,7 @@ type Query {
 
 type Mutation {
     # Check the mutation class to broadcast progamatically
-    createUser(name: String): User! @field(resolver: "App\\GraphQL\\Mutations\\CreateUser") @broadcast(subscription: userCreated)
+    createUser(name: String): User! @field(resolver: "App\\GraphQL\\Mutations\\CreateUser") @broadcast(subscription: "userCreated")
 }
 
 type Subscription {
