@@ -58,3 +58,8 @@ mutation createUser{
 - Click the button. 
 
 Wait for a few seconds as the other project uses queue to push the data to echo server (by default). And you should be able to see the data changing.
+
+## GraphQL Related Articles
+1. [GraphQL by night — Understanding GraphQL Basics](https://bit.ly/2LxF7xX)
+2. [GraphQL by night — Implementing GraphQL with Laravel/Lumen](https://bit.ly/3cYD15K)
+3. [GraphQL by night — Implementing GraphQL Subscription with Laravel/Lumen](https://bit.ly/3jFm1mo) in [nuwave/lighthouse](https://github.com/nuwave/lighthouse) using Pusher & Echo driver
