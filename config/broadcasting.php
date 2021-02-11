@@ -38,10 +38,10 @@ return [
             'log' => env('PUSHER_ENABLE_LOG', false),
             'options' => [
                 'cluster' => env('PUSHER_APP_CLUSTER'),
-                'useTLS' => true,
+                'useTLS' => env('PUSHER_USE_TLS', false),
                 'host' => env('PUSHER_HOST', '127.0.0.1'),
                 'port' => env('PUSHER_PORT', 6001),
-                'scheme' => 'http'
+                'scheme' => env('PUSHER_SCHEME', 'http'),
             ],
         ],
 
